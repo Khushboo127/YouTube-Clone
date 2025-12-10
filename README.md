@@ -1,5 +1,7 @@
 # YouTube Clone – MERN Full-Stack Project
 
+# Github Repo:- https://github.com/Khushboo127/YouTube-Clone
+
 A fully-functional YouTube-like video platform built using the MERN stack, featuring authentication, video uploads, YouTube video support, likes/dislikes, comments, channels, search, dashboard, and more.
 
 This is a real-world full-stack clone designed to look and behave like YouTube (UI + features).
