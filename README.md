@@ -1,10 +1,12 @@
-🎬 YouTube Clone – MERN Full-Stack Project
+# YouTube Clone – MERN Full-Stack Project
 
 A fully-functional YouTube-like video platform built using the MERN stack, featuring authentication, video uploads, YouTube video support, likes/dislikes, comments, channels, search, dashboard, and more.
 
 This is a real-world full-stack clone designed to look and behave like YouTube (UI + features).
 
-🚀 Tech Stack
+# Live Demo:-  https://youtube-clone-iqhd.onrender.com/
+
+# Tech Stack
 Frontend (React + Vite)
 
 React 18
@@ -37,8 +39,9 @@ Database
 
 MongoDB Atlas (Cloud Hosted)
 
-🎯 Features
-✅ User Authentication
+# Features
+
+User Authentication
 
 Register
 
@@ -48,7 +51,7 @@ JWT-based authentication
 
 Secure cookie storage
 
-🎥 Video System
+# Video System
 
 Upload your own videos (MP4)
 
@@ -60,7 +63,7 @@ Auto-update view counts
 
 Like & dislike system (1 user → 1 like/dislike max)
 
-📺 Channel Pages
+# Channel Pages
 
 Create a channel
 
@@ -72,7 +75,7 @@ Display all uploaded videos
 
 “Customize Channel” + “Manage Videos” page
 
-💬 Comments System
+# Comments System
 
 Add comments
 
@@ -80,7 +83,7 @@ Delete your own comments
 
 Display comment username + timestamp
 
-🔍 Search
+# Search
 
 Search videos by title
 
@@ -88,7 +91,7 @@ Instant filtering (YouTube-like)
 
 Category filter chips (Music, Gaming, React, OOP, etc.)
 
-📱 Responsive UI
+# Responsive UI
 
 YouTube-like:
 
@@ -130,7 +133,8 @@ youtube-clone/
 └── README.md
 
 
-🛠️ Local Setup
+# Local Setup
+
 1️⃣ Clone Repo
 git clone https://github.com/YOUR-USERNAME/youtube-clone.git
 cd youtube-clone
