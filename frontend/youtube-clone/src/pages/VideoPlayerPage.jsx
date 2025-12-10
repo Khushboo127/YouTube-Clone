@@ -10,7 +10,7 @@ import { MdDownload } from "react-icons/md";
 
 
 const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    import.meta.env.VITE_API_BASE_URL || "https://youtube-clone-backend-2c7m.onrender.com";
 
 function VideoPlayerPage() {
     const { id } = useParams(); // video id from URL

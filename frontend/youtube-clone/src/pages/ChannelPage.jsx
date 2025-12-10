@@ -7,9 +7,9 @@ import VideoCard from "../components/VideoCard";
 
 // ✅ Base URL of your backend (for /uploads)
 const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    import.meta.env.VITE_API_BASE_URL || "https://youtube-clone-backend-2c7m.onrender.com";
 
-// ✅ Helper: turn "/uploads/xyz.jpg" into "http://localhost:5000/uploads/xyz.jpg"
+// ✅ Helper: turn "/uploads/xyz.jpg"
 function buildImageUrl(url) {
     if (!url) return "";
     if (url.startsWith("http")) return url;

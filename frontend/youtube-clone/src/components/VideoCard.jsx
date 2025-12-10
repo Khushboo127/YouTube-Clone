@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://youtube-clone-backend-2c7m.onrender.com";
 
 function getThumbnailSrc(video) {
     const { youtubeId, thumbnailUrl, thumbnail, thumbnailPath } = video;
