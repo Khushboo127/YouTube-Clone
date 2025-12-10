@@ -6,74 +6,43 @@ import VideoGrid from "../components/VideoGrid";
 import FilterBar from "../components/FilterBar";
 import api from "../api/client";
 
-function matchesFilter(video, filterKey) {
+/**
+ * Returns true if the given video should be shown
+ * for the selected filter label (ex: "React", "Music").
+ */
+function matchesFilter(video, filterLabel) {
     if (!video) return false;
-    if (filterKey === "ALL") return true;
+    if (!filterLabel || filterLabel === "All") return true;
+
+    const label = filterLabel.toLowerCase();
 
     const title = (video.title || "").toLowerCase();
     const category = (video.category || "").toLowerCase();
+    const description = (video.description || "").toLowerCase();
+    const tagsArray = Array.isArray(video.tags) ? video.tags : [];
+    const tags = tagsArray.map((t) => String(t).toLowerCase());
 
-    switch (filterKey) {
-        case "4K":
-            return category.includes("4k");
-        case "JAVASCRIPT":
-            return category === "javascript" || title.includes("javascript");
-        case "REACT":
-            return category === "react" || title.includes("react");
-        case "DATA_STRUCTURES":
-            return (
-                category.includes("data structure") ||
-                title.includes("data structure")
-            );
-        case "COMPLEX_NUMBERS":
-            return (
-                category.includes("complex") ||
-                title.includes("complex number")
-            );
-        case "MUSIC":
-            return (
-                category === "music" ||
-                title.includes("music") ||
-                title.includes("lofi")
-            );
-        case "GAMING":
-            return category === "gaming" || title.includes("game");
-        case "OOP":
-            return (
-                category.includes("oop") ||
-                title.includes("object oriented") ||
-                title.includes("oop")
-            );
-        case "AI":
-            return (
-                category === "ai" ||
-                title.includes("ai") ||
-                title.includes("machine learning")
-            );
-        case "INDIAN_POP":
-            return (
-                title.includes("indian") ||
-                title.includes("bollywood") ||
-                title.includes("hindi") ||
-                category.includes("indian")
-            );
-        default:
-            return true;
-    }
+    // match against: title, category, description, tags
+    return (
+        title.includes(label) ||
+        category.includes(label) ||
+        description.includes(label) ||
+        tags.some((t) => t.includes(label))
+    );
 }
 
 function HomePage() {
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [selectedFilter, setSelectedFilter] = useState("ALL");
+    const [selectedFilter, setSelectedFilter] = useState("All");
 
     // read ?search= from URL (for search bar)
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const searchTerm = params.get("search") || "";
 
-    // fetch videos (with optional search) once per searchTerm
+    // Fetch videos (optionally filtered by search)
     useEffect(() => {
         const fetchVideos = async () => {
             try {
@@ -87,7 +56,7 @@ function HomePage() {
                 const res = await api.get(url);
                 setVideos(res.data);
             } catch (err) {
-                console.error(err);
+                console.error("Failed to load videos:", err);
                 setError("Failed to load videos");
             } finally {
                 setLoading(false);
@@ -97,7 +66,7 @@ function HomePage() {
         fetchVideos();
     }, [searchTerm]);
 
-    // apply filter chips on top of fetched list
+    // Apply filter chip on top of the fetched list
     const filteredVideos = useMemo(
         () => videos.filter((v) => matchesFilter(v, selectedFilter)),
         [videos, selectedFilter]

@@ -1,33 +1,32 @@
 // src/components/FilterBar.jsx
 
 const FILTERS = [
-    { key: "ALL", label: "All" },
-    { key: "4K", label: "4K resolution" },
-    { key: "JAVASCRIPT", label: "JavaScript" },
-    { key: "REACT", label: "React" },
-    { key: "DATA_STRUCTURES", label: "Data Structures" },
-    { key: "COMPLEX_NUMBERS", label: "Complex numbers" },
-    { key: "MUSIC", label: "Music" },
-    { key: "GAMING", label: "Gaming" },
-    // extra fun filters like in screenshot:
-    { key: "OOP", label: "Object-oriented programming" },
-    { key: "AI", label: "AI" },
-    { key: "INDIAN_POP", label: "Indian pop music" },
+    "All",
+    "4K resolution",
+    "JavaScript",
+    "React",
+    "Data Structures",
+    "Complex numbers",
+    "Music",
+    "Gaming",
+    "Object-oriented programming",
+    "AI",
+    "Indian pop music",
 ];
 
 function FilterBar({ selectedFilter, onChange }) {
     return (
         <div className="filter-bar">
-            {FILTERS.map((f) => (
+            {FILTERS.map((label) => (
                 <button
-                    key={f.key}
+                    key={label}
                     className={
                         "filter-chip" +
-                        (selectedFilter === f.key ? " filter-chip-active" : "")
+                        (selectedFilter === label ? " filter-chip-active" : "")
                     }
-                    onClick={() => onChange(f.key)}
+                    onClick={() => onChange(label)}
                 >
-                    {f.label}
+                    {label}
                 </button>
             ))}
         </div>
