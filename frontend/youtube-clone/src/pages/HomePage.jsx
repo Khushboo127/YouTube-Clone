@@ -1,5 +1,6 @@
 // src/pages/HomePage.jsx
 import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
 import VideoGrid from "../components/VideoGrid";
 import FilterBar from "../components/FilterBar";
@@ -30,7 +31,11 @@ function matchesFilter(video, filterKey) {
                 title.includes("complex number")
             );
         case "MUSIC":
-            return category === "music" || title.includes("music") || title.includes("lofi");
+            return (
+                category === "music" ||
+                title.includes("music") ||
+                title.includes("lofi")
+            );
         case "GAMING":
             return category === "gaming" || title.includes("game");
         case "OOP":
@@ -40,7 +45,11 @@ function matchesFilter(video, filterKey) {
                 title.includes("oop")
             );
         case "AI":
-            return category === "ai" || title.includes("ai") || title.includes("machine learning");
+            return (
+                category === "ai" ||
+                title.includes("ai") ||
+                title.includes("machine learning")
+            );
         case "INDIAN_POP":
             return (
                 title.includes("indian") ||
@@ -59,12 +68,23 @@ function HomePage() {
     const [error, setError] = useState("");
     const [selectedFilter, setSelectedFilter] = useState("ALL");
 
+    // read ?search= from URL (for search bar)
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const searchTerm = params.get("search") || "";
+
+    // fetch videos (with optional search) once per searchTerm
     useEffect(() => {
         const fetchVideos = async () => {
             try {
                 setLoading(true);
                 setError("");
-                const res = await api.get("/videos");
+
+                const url = searchTerm
+                    ? `/videos?search=${encodeURIComponent(searchTerm)}`
+                    : "/videos";
+
+                const res = await api.get(url);
                 setVideos(res.data);
             } catch (err) {
                 console.error(err);
@@ -73,9 +93,11 @@ function HomePage() {
                 setLoading(false);
             }
         };
-        fetchVideos();
-    }, []);
 
+        fetchVideos();
+    }, [searchTerm]);
+
+    // apply filter chips on top of fetched list
     const filteredVideos = useMemo(
         () => videos.filter((v) => matchesFilter(v, selectedFilter)),
         [videos, selectedFilter]
@@ -92,7 +114,7 @@ function HomePage() {
                 {loading && <p>Loading videos...</p>}
                 {error && <p>{error}</p>}
                 {!loading && !error && (
-                    <VideoGrid videos={filteredVideos} />
+                    <VideoGrid videos={filteredVideos} search={searchTerm} />
                 )}
             </div>
         </Layout>
